@@ -74,7 +74,7 @@ class ThingSpeakHandler(FilterEventHandler):
         if field_no is None:
             return
 
-        self._values_cache[field_no] = int(new_value)
+        self._values_cache[field_no] = new_value
 
         # Don't send samples more often than min_period
         now = time.time()
@@ -112,7 +112,7 @@ class ThingSpeakHandler(FilterEventHandler):
         field_msgs = []
         for i in range(1, self.MAX_FIELDS + 1):
             if i in values:
-                field_msgs.append(f'field{i}={int(values[i])}')
+                field_msgs.append(f'field{i}={values[i]}')
 
         self.logger.debug('sent %s at %s', ', '.join(field_msgs), data['created_at'])
 
