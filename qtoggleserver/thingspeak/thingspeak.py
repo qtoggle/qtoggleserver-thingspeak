@@ -20,7 +20,7 @@ from .exceptions import ThingSpeakException
 logger = logging.getLogger(__name__)
 
 
-class ThingSpeakHandler(FilterEventHandler):
+class ThingSpeakEventHandler(FilterEventHandler):
     BASE_URL = 'https://api.thingspeak.com'
     UPDATE_ENDPOINT = '/update.json'
     MAX_FIELDS = 8

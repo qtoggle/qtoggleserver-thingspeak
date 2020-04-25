@@ -1,2 +1,0 @@
-
-from .thingspeak import ThingSpeakHandler

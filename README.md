@@ -24,12 +24,13 @@ creating a new channel, you'll find a *write API key*; copy it and use it in the
 event_handlers = [
     ...
     {
-        driver = "qtoggleserver.thingspeak.events.ThingSpeakHandler"
+        driver = "qtoggleserver.thingspeak.ThingSpeakEventHandler"
         api_key = "FJ3U5TL443012EF7"
         fields = {
             "first_port_id" = 1
             "second_port_id" = 2
         }
+        # don't specify both min_period and period! 
         min_period = 5
         period = 10
         ...
