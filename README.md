@@ -19,7 +19,7 @@ creating a new channel, you'll find a *write API key*; copy it and use it in the
 
 
 ##### `qtoggleserver.conf:`
-``` javascript
+``` ini
 ...
 event_handlers = [
     ...
@@ -27,11 +27,10 @@ event_handlers = [
         driver = "qtoggleserver.thingspeak.ThingSpeakEventHandler"
         api_key = "FJ3U5TL443012EF7"
         fields = {
-            "first_port_id" = 1
+            "first_port_id" = 1     # association between port id and ThingSpeak field number
             "second_port_id" = 2
         }
-        # don't specify both min_period and period! 
-        min_period = 5
+        min_period = 5              # don't specify both min_period and period!
         period = 10
         ...
     }
@@ -54,4 +53,4 @@ with regular cadence. The last port value at the moment of sampling will be sent
 You must specify one and only one of `min_period` and `period`, depending on the desired behavior.  
 
 For advanced event filtering, see
-[Filter Event Handlers](https://github.com/qtoggle/qtoggleserver/wiki/Filter-Event-Handlers)
+[Filter Event Handlers](https://github.com/qtoggle/qtoggleserver/wiki/Filter-Event-Handlers).
