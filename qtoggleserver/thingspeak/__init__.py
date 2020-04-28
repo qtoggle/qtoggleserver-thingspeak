@@ -2,4 +2,4 @@
 from .thingspeak import ThingSpeakEventHandler
 
 
-VERSION = 'unknown'
+VERSION = 'unknown-version'
