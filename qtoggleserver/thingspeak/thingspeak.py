@@ -43,12 +43,12 @@ class ThingSpeakEventHandler(FilterEventHandler):
             raise ThingSpeakException('Either period or min_period must be specified')
 
         self._api_key: str = api_key
-        self._fields = fields
-        self._period = period
-        self._min_period = min_period
+        self._fields: Dict[str, int] = fields
+        self._period: Optional[int] = period
+        self._min_period: Optional[int] = min_period
 
-        self._last_send_time = time.time()
-        self._values_cache = {}
+        self._last_send_time: float = time.time()
+        self._values_cache: Dict[int, NullablePortValue] = {}
 
         # Start periodic send task
         if self._period is not None:
