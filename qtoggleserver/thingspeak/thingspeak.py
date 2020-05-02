@@ -29,6 +29,7 @@ class ThingSpeakEventHandler(FilterEventHandler):
 
     def __init__(
         self,
+        *,
         api_key: str,
         fields: Dict[str, int],
         period: Optional[int] = None,
@@ -88,7 +89,7 @@ class ThingSpeakEventHandler(FilterEventHandler):
             await self.send_values(self._values_cache, created_at)
 
         except Exception as e:
-            self.logger.error('sending values failed: %s', e, exc_info=True)
+            self.error('sending values failed: %s', e, exc_info=True)
 
         self._values_cache = {}
 
@@ -114,7 +115,7 @@ class ThingSpeakEventHandler(FilterEventHandler):
             if i in values:
                 field_msgs.append(f'field{i}={values[i]}')
 
-        self.logger.debug('sent %s at %s', ', '.join(field_msgs), data['created_at'])
+        self.debug('sent %s at %s', ', '.join(field_msgs), data['created_at'])
 
     async def periodic_send_values(self) -> None:
         while True:
@@ -127,13 +128,13 @@ class ThingSpeakEventHandler(FilterEventHandler):
                     await self.send_values(field_values, datetime.datetime.utcnow())
 
                 else:
-                    self.logger.debug('not sending empty values')
+                    self.debug('not sending empty values')
 
             except asyncio.CancelledError:
-                self.logger.debug('periodic send values loop cancelled')
+                self.debug('periodic send values loop cancelled')
                 break
 
             except Exception as e:
-                self.logger.error('sending values failed: %s', e, exc_info=True)
+                self.error('sending values failed: %s', e, exc_info=True)
 
             await asyncio.sleep(self._period)
