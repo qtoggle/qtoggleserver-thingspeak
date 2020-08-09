@@ -121,7 +121,7 @@ class ThingSpeakEventHandler(FilterEventHandler):
         while True:
             ports = [core_ports.get(port_id) for port_id in self._fields.keys()]
             port_values = {p.get_id(): p.get_value() for p in ports}
-            field_values = {self._fields[_id]: value for _id, value in port_values.items()}
+            field_values = {self._fields[id_]: value for id_, value in port_values.items()}
 
             try:
                 if field_values:
