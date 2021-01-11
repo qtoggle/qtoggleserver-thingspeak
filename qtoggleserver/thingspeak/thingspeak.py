@@ -120,7 +120,7 @@ class ThingSpeakEventHandler(FilterEventHandler):
     async def periodic_send_values(self) -> None:
         while True:
             ports = [core_ports.get(port_id) for port_id in self._fields.keys()]
-            port_values = {p.get_id(): p.get_value() for p in ports}
+            port_values = {p.get_id(): p.get_last_read_value() for p in ports}
             field_values = {self._fields[id_]: value for id_, value in port_values.items()}
 
             try:
