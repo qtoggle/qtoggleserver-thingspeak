@@ -5,7 +5,7 @@ import logging
 import pytz
 import time
 
-from typing import Dict, Optional
+from typing import Optional
 
 import aiohttp
 
@@ -31,7 +31,7 @@ class ThingSpeakEventHandler(FilterEventHandler):
         self,
         *,
         api_key: str,
-        fields: Dict[str, int],
+        fields: dict[str, int],
         period: Optional[int] = None,
         min_period: Optional[int] = None,
         **kwargs
@@ -44,12 +44,12 @@ class ThingSpeakEventHandler(FilterEventHandler):
             raise ThingSpeakException('Either period or min_period must be specified')
 
         self._api_key: str = api_key
-        self._fields: Dict[str, int] = fields
+        self._fields: dict[str, int] = fields
         self._period: Optional[int] = period
         self._min_period: Optional[int] = min_period
 
         self._last_send_time: float = time.time()
-        self._values_cache: Dict[int, NullablePortValue] = {}
+        self._values_cache: dict[int, NullablePortValue] = {}
 
         # Start periodic send task
         if self._period is not None:
@@ -93,7 +93,7 @@ class ThingSpeakEventHandler(FilterEventHandler):
 
         self._values_cache = {}
 
-    async def send_values(self, values: Dict[int, float], created_at: datetime.datetime) -> None:
+    async def send_values(self, values: dict[int, float], created_at: datetime.datetime) -> None:
         if not values:
             raise ThingSpeakException('Refusing to send empty values')
 
