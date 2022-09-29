@@ -86,7 +86,6 @@ class ThingSpeakEventHandler(FilterEventHandler):
 
         try:
             await self.send_values(self._values_cache, created_at)
-
         except Exception as e:
             self.error('sending values failed: %s', e, exc_info=True)
 
@@ -125,14 +124,11 @@ class ThingSpeakEventHandler(FilterEventHandler):
             try:
                 if field_values:
                     await self.send_values(field_values, datetime.datetime.utcnow())
-
                 else:
                     self.debug('not sending empty values')
-
             except asyncio.CancelledError:
                 self.debug('periodic send values loop cancelled')
                 break
-
             except Exception as e:
                 self.error('sending values failed: %s', e, exc_info=True)
 
