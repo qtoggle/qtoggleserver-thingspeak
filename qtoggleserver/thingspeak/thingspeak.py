@@ -127,7 +127,7 @@ class ThingSpeakEventHandler(FilterEventHandler):
                 else:
                     self.debug('not sending empty values')
             except asyncio.CancelledError:
-                self.debug('periodic send values loop cancelled')
+                self.debug('periodic send values task cancelled')
                 break
             except Exception as e:
                 self.error('sending values failed: %s', e, exc_info=True)
