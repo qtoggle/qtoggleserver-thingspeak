@@ -1,3 +1,17 @@
+[project]
+name = "qtoggleserver-thingspeak"
+version = "unknown-version"
+description = "Send values from qToggleServer to ThingSpeak"
+authors = [
+    {name = "Calin Crisan", email = "ccrisan@gmail.com"},
+]
+requires-python = "==3.10.*"
+readme = "README.md"
+license = {text = "Apache 2.0"}
+dependencies = [
+    "aiohttp",
+]
+
 [tool.ruff]
 line-length = 120
 target-version = "py310"
@@ -9,4 +23,3 @@ lint.isort.force-wrap-aliases = true
 [tool.mypy]
 explicit_package_bases = true
 ignore_missing_imports = true
-
