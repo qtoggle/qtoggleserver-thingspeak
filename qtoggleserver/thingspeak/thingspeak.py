@@ -1,7 +1,8 @@
 import asyncio
-import datetime
 import logging
 import time
+
+from datetime import datetime, timezone
 
 import aiohttp
 import pytz
@@ -78,7 +79,7 @@ class ThingSpeakEventHandler(FilterEventHandler):
             return
 
         self._last_send_time = now
-        created_at = datetime.datetime.fromtimestamp(event.get_timestamp(), tz=pytz.UTC)
+        created_at = datetime.fromtimestamp(event.get_timestamp(), tz=pytz.UTC)
 
         try:
             await self.send_values(self._values_cache, created_at)
@@ -87,7 +88,7 @@ class ThingSpeakEventHandler(FilterEventHandler):
 
         self._values_cache = {}
 
-    async def send_values(self, values: dict[int, float], created_at: datetime.datetime) -> None:
+    async def send_values(self, values: dict[int, float], created_at: datetime) -> None:
         if not values:
             raise ThingSpeakException("Refusing to send empty values")
 
@@ -116,7 +117,7 @@ class ThingSpeakEventHandler(FilterEventHandler):
 
             try:
                 if field_values:
-                    await self.send_values(field_values, datetime.datetime.utcnow())
+                    await self.send_values(field_values, datetime.now(timezone.utc))
                 else:
                     self.debug("not sending empty values")
             except asyncio.CancelledError:
