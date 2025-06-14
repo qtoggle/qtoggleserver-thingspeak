@@ -4,4 +4,4 @@ from .thingspeak import ThingSpeakEventHandler
 __all__ = ["ThingSpeakEventHandler"]
 
 
-VERSION = "unknown-version"
+VERSION = "0.0.0"
