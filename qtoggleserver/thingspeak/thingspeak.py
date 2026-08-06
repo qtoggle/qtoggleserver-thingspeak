@@ -10,7 +10,7 @@ import pytz
 from qtoggleserver.core import events as core_events
 from qtoggleserver.core import ports as core_ports
 from qtoggleserver.core.typing import Attributes, NullablePortValue
-from qtoggleserver.lib.filtereventhandler import FilterEventHandler
+from qtoggleserver.lib.filter_event_handler import FilterEventHandler
 
 from .exceptions import ThingSpeakException
 
