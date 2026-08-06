@@ -2,7 +2,7 @@ import asyncio
 import logging
 import time
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import aiohttp
 import pytz
@@ -98,9 +98,8 @@ class ThingSpeakEventHandler(FilterEventHandler):
         # Add field values
         data.update({f"field{no}": value for no, value in values.items()})
 
-        async with aiohttp.ClientSession(raise_for_status=True) as session:
-            async with session.post(url, json=data) as response:
-                await response.json()
+        async with aiohttp.ClientSession(raise_for_status=True) as session, session.post(url, json=data) as response:
+            await response.json()
 
         field_msgs = []
         for i in range(1, self.MAX_FIELDS + 1):
@@ -111,13 +110,13 @@ class ThingSpeakEventHandler(FilterEventHandler):
 
     async def periodic_send_values(self) -> None:
         while True:
-            ports = [core_ports.get(port_id) for port_id in self._fields.keys()]
+            ports = [core_ports.get(port_id) for port_id in self._fields]
             port_values = {p.get_id(): p.get_last_read_value() for p in ports}
             field_values = {self._fields[id_]: value for id_, value in port_values.items()}
 
             try:
                 if field_values:
-                    await self.send_values(field_values, datetime.now(timezone.utc))
+                    await self.send_values(field_values, datetime.now(UTC))
                 else:
                     self.debug("not sending empty values")
             except asyncio.CancelledError:
